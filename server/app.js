@@ -55,8 +55,7 @@ function createApp(db) {
   app.get('/api/search', (req, res, next) => {
     try {
       const q = String(req.query.q || '');
-      const query = "SELECT * FROM products WHERE name LIKE '%" + q + "%'";
-      res.json(_.sortBy(db.prepare(query).all(), 'id'));
+      res.json(_.sortBy(db.prepare("SELECT * FROM products WHERE name LIKE '%" + q + "%'").all(), 'id'));
     } catch (error) { next(error); }
   });
   app.post('/api/auth/send-otp', (req, res) => {
